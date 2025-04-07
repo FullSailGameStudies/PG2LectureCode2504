@@ -69,11 +69,15 @@ int main()
         CHALLENGE:
 
             Add an isEven method to the calculator.
+            add the declaration to the header
+            add the definition to the cpp
             It should take 1 parameter and return a bool.
 
             Call the method on the t1000 calculator instance and print the results.
 
     */
+    int number1 = 5;
+    bool result = t1000.isEven(number1);
 
 
 
@@ -99,10 +103,46 @@ int main()
     std::vector<std::string> names { "Batman", "Bruce Wayne", "The Best" };
     names.push_back("The Greatest Detective");
     names.push_back("The Bat");
-    names.push_back("The Joker");
+    names.push_back("The Joker");//index 5
     names.push_back("Bane");
     names.push_back("Poison Ivy");
 
+    //names.erase(names.begin() + 5);//erase REQUIRES an iterator to be passed to it
+    for (size_t i = 0; i < names.size(); i++)
+    {
+        if (names[i] == "The Joker")
+        {
+            names.erase(names.begin() + i);
+        }
+    }
+
+    std::cout << "\nfor\n";
+    for (int i = 0; i < names.size(); i++)
+    {
+        //std::string name = names[i];
+        std::cout << names[i] << "\t" << names[i].size() << "\n";
+        //OR...
+        Console::WriteLine(names[i]);
+    }
+    //range-based for loop (foreach loop)
+    std::cout << "\nrange-based for\n";
+    for (std::string& name : names)
+    {
+        Console::WriteLine(name);
+    }
+    std::cout << "\niterator for\n";
+    //vector.begin() - an iterator to the first item in the vector
+    //vector.end() - an iterator to the item AFTER the last item???????
+    //an iterator to the last item...vector.end() - 1
+    for (std::vector<std::string>::iterator i = names.begin(); i != names.end(); i++)
+    {
+        //an iterator "points" to the item in the vector
+        //use *iterator to get to the item
+        std::string name = *i;
+        if (*i == "Bane")
+            i = names.erase(i);//i is an iterator
+        Console::WriteLine(name);
+    }
 
     /*
         CHALLENGE:
