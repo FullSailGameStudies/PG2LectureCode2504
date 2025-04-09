@@ -31,6 +31,9 @@ void print(const std::vector<int>& scores)
 
 void printInfo(const std::vector<int>& scores)
 {
+    // size() - # of items in the vector
+    // capacity() - length of the internal array
+    // size() <= capacity()
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
@@ -63,8 +66,8 @@ int main()
     Message(message);//msg = message;
     std::string notReference = message;//2 different variables
     notReference = "Superman is an ALIEN!";
-    std::string& strReference = message;//1 variable, 2 names
-    strReference = "Yep! definitely an alien!";
+    std::string& sameVariable = message;//1 variable, 2 names
+    sameVariable = "Yep! definitely an alien!";
     Message2(message);
     /*
         ╔══════════════════════════════╗
@@ -107,13 +110,29 @@ int main()
         This is the way you pass by reference and prevent the method from changing the variable.
     */
     std::vector<int> highScores;
+    highScores.reserve(10);//makes the capacity = 10 (internal array of length 10)
+    printInfo(highScores);//size: 0  capacity: 0?? 10??
     for (int i = 0; i < 10; ++i)
     {
         highScores.push_back(rand() % 5000);
         printInfo(highScores);//size: ?  capacity: ?
     }
+    highScores.reserve(20);
+    for (int i = 0; i < 10; ++i)
+    {
+        highScores.push_back(rand() % 5000);
+        printInfo(highScores);//size: ?  capacity: ?
+    }
+    highScores.clear();
+    printInfo(highScores);//size: 0  capacity: 0? 20?
+    highScores.reserve(5);
+    printInfo(highScores);//size: 0  capacity: 0? 20?
+    highScores.shrink_to_fit();
+    printInfo(highScores);//size: 0  capacity: 0? 20?
     float avg = average(highScores);
 
+    //write code to erase all scores < 2500
+    //print the scores
 
 
     /*
