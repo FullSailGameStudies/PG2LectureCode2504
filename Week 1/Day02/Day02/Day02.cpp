@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include "FullSailCourse.h"
 
 bool postFix(std::string& hero)
 {
@@ -33,8 +34,38 @@ void printInfo(const std::vector<int>& scores)
     std::cout << "size: " << scores.size() << "\tcapacity: " << scores.capacity() << "\n";
 }
 
+//pass by value:
+//  creates a new variable
+//  copies the value into that spot of memory
+void Message(std::string msg)//passed by value (making a copy)
+{
+    //msg is a new variable.
+    // it is initialized when it is called.
+    //std::string msg = "Flash is faster than superman?";
+    std::cout << msg;
+}
+//pass by reference
+//  a reference variable is created
+//  it "points" to the variable that was used when calling
+//  the method.
+//  think 'alias'
+//  prevents a copy
+void Message2(std::string& msgByReference)//pass by reference
+{
+    std::cout << msgByReference;
+}
+
 int main()
 {
+    //scope is the "visibility" of variables
+    //{ } defines the scope
+    std::string message = "Aquaman smells like fish.";
+    Message(message);//msg = message;
+    std::string notReference = message;//2 different variables
+    notReference = "Superman is an ALIEN!";
+    std::string& strReference = message;//1 variable, 2 names
+    strReference = "Yep! definitely an alien!";
+    Message2(message);
     /*
         ╔══════════════════════════════╗
         ║Parameters: Pass by Reference.║
@@ -54,11 +85,16 @@ int main()
         CHALLENGE 1:
 
             Write a method to fill the vector of floats with grades.
+            0) create a method above main
             1) pass it in by reference
             2) add 10 grades to the vector
+            3) after calling the method, print the grades
 
     */
     std::vector<float> grades;
+    FullSailCourse pg2;
+    pg2.GetGrades(grades);
+    pg2.PrintGrades(grades);
 
 
 
