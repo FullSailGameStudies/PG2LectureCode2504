@@ -123,12 +123,12 @@ int main()
         highScores.push_back(rand() % 5000);
         printInfo(highScores);//size: ?  capacity: ?
     }
-    highScores.clear();
-    printInfo(highScores);//size: 0  capacity: 0? 20?
-    highScores.reserve(5);
-    printInfo(highScores);//size: 0  capacity: 0? 20?
-    highScores.shrink_to_fit();
-    printInfo(highScores);//size: 0  capacity: 0? 20?
+    //highScores.clear();
+    //printInfo(highScores);//size: 0  capacity: 0? 20?
+    //highScores.reserve(5);
+    //printInfo(highScores);//size: 0  capacity: 0? 20?
+    //highScores.shrink_to_fit();
+    //printInfo(highScores);//size: 0  capacity: 0? 20?
     float avg = average(highScores);
 
     //write code to erase all scores < 2500
@@ -164,6 +164,43 @@ int main()
     print(highScores);
 
     //erase all scores < 2500
+    for (int i = 0; i < highScores.size(); i++)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+            i--;//move the index back
+        }
+    }
+    //OR...    
+    for (int i = 0; i < highScores.size(); )
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+        else
+            i++;
+    }
+    //OR...
+    for (int i = highScores.size() - 1; i >= 0; i--)
+    {
+        if (highScores[i] < 2500)
+        {
+            highScores.erase(highScores.begin() + i);
+        }
+    }
+    //OR...
+    for (auto iter = highScores.begin(); iter != highScores.end();)
+    {
+        if (*iter < 2500)
+        {
+            iter = highScores.erase(iter);
+        }
+        else
+            iter++;
+    }
+
 
     print(highScores);
 
