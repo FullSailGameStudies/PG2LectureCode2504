@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <vector>
+#include "ThemeSong.h"
 
 std::string postFix(std::string fileName, int postFixNumber = 1) //postFixNumber is optional
 {
@@ -36,14 +37,19 @@ int main()
     /*
         CHALLENGE 1:
 
-            Write a method called batTheme.
-            Add an optional parameter to determine how many "na" are printed. The default value should be 13.
+            Write a method called batTheme to ThemeSong.
+            Add an optional parameter to determine how many "na" are printed. 
+            The default value should be 13.
             
-            If the calling code does not pass a value for the parameter, print "na na na na na na na na na na na na na Batman".
+            If the calling code does not pass a value for the parameter, 
+            print "na na na na na na na na na na na na na Batman".
             If a value is passed, print the number of "na" equal to the value.
             EX: if 6 is passed, print "na na na na na na Batman"
 
     */
+    ThemeSong theBat;
+    theBat.batTheme(500);
+    theBat.batTheme();
 
 
 
@@ -63,10 +69,11 @@ int main()
         3) passing a vector to the constructor of another vector
 
     */
-    std::vector<int> scores = { 1,2,3,4,5 };
+    std::vector<int> scores = { 1,2,3,4,5,6,7,8,9,0 };
 
     //1) copy each element manually
     std::vector<int> scores2;
+    scores2.reserve(scores.size());
     for (size_t i = 0; i < scores.size(); i++)
         scores2.push_back(scores[i]);
 
@@ -76,6 +83,10 @@ int main()
     //3) passing a vector to the constructor of another vector
     std::vector<int> scores4(scores);
 
+    std::cout << "Size: " << scores.size() << "\tCapacity: " << scores.capacity() << "\n";
+    std::cout << "Size: " << scores2.size() << "\tCapacity: " << scores2.capacity() << "\n";
+    std::cout << "Size: " << scores3.size() << "\tCapacity: " << scores3.capacity() << "\n";
+    std::cout << "Size: " << scores4.size() << "\tCapacity: " << scores4.capacity() << "\n";
 
 
     /*
