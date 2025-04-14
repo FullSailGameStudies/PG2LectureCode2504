@@ -19,8 +19,13 @@ std::string toUpper(const std::string& original)
 
 void recursiveLoop(int N)
 {
-	recursiveLoop(N + 1);
-}
+	if (N < 500)//exit condition (base case?)
+	{
+		std::cout << N << ">>\n";//going out loop
+		recursiveLoop(N + 1);
+		std::cout << N << "<<\n";//coming back loop (unwinding the stack)
+	}
+}//returns
 
 unsigned long factorial(unsigned int N)
 {
@@ -90,6 +95,16 @@ void bubbleSort(std::vector<std::string>& A)
 	} while (swapped);
 }//end procedure
 
+void Bats(int N)
+{
+	if (N < 100)
+	{
+		std::cout << (char)78 << (char)65 << ' ';
+		//N++ adds the 1 to N AFTER calling Bats
+		//++N adds the 1 BEFORE calling Bats
+		Bats(N+1);
+	}
+}
 
 int main()
 {
@@ -121,7 +136,7 @@ int main()
 
 	*/
 	int N = 0;
-	recursiveLoop(N);
+	//recursiveLoop(N);
 
 
 	/*
@@ -136,6 +151,7 @@ int main()
 			}
 	*/
 	//call Bats here.
+	Bats(0);
 
 	char c[] = { '\n', 66, 65, 84, 77, 65, 78, 33, 33 };
 	for (auto ch : c) std::cout << ch;
