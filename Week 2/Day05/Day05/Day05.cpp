@@ -7,11 +7,37 @@
 #include <vector>
 #include "Console.h"
 #include "Input.h"
+#include <iomanip>
 
 enum class Weapon
 {
     Sword, Axe, Spear, Mace
 };
+
+//contains? bool. 
+//search: where it is in the collection? index.
+
+const int NOT_FOUND = -1;
+
+/// <summary>
+/// Will search a vector of ints for a specific number.
+/// </summary>
+/// <param name="nummies">The vector to search.</param>
+/// <param name="searchNumber">The number to look for.</param>
+/// <returns>-1 if not found. The index if found.</returns>
+int LinearSearch(const std::vector<int>& nummies, int searchNumber)
+{
+    int index = NOT_FOUND;//-1 means not found
+    for (int i = 0; i < nummies.size(); i++)
+    {
+        if (searchNumber == nummies[i])
+        {
+            index = i;
+            break;
+        }
+    }
+    return index;
+}
 
 
 int main()
@@ -37,7 +63,16 @@ int main()
 
     */
     std::vector<int> numbers = { 0,1,2,3,4,5,6 };
-    int searchNumber = 15;
+    int searchNumber = 0;
+    int foundIndex = LinearSearch(numbers, searchNumber);
+    if (foundIndex == NOT_FOUND)
+    {
+        std::cout << searchNumber << " was not found.\n";
+    }
+    else
+    {
+        std::cout << searchNumber << " was found at index " << foundIndex << "\n";
+    }
 
 
 
@@ -63,6 +98,58 @@ int main()
         1) using the insert method.
         2) using [key] = value
     */
+    std::map <std::string, float> menu;
+    menu["Baconator"] = 7.69F;//added a key-value pair to the map
+    menu["Hot Hoagie"] = 7.69F;//added a key-value pair to the map
+    menu["Avocado Burger"] = 11.99F;//added a key-value pair to the map
+    menu["Avocado Burger"] = 14.99F;//added a key-value pair to the map. OVERWRITES!
+    
+    //insert a pair object into the map
+    //pairs have 2 parts: first and second
+    std::pair<std::string, float> insertObj = std::make_pair("Cheez Pizza", 4.99f);
+    auto wasInsertedOrNot = menu.insert(insertObj);//will NOT overwrite if the key already exists in the map
+    if (not wasInsertedOrNot.second)
+    {
+        std::cout << insertObj.first << " was not inserted. Do you want to overwrite?\n";
+    }
+
+
+    //iterator loop
+    std::cout << "\n\nIterator loop:\n";
+    for (auto menuIterator = menu.begin(); menuIterator != menu.end(); menuIterator++)
+    {
+        std::cout << std::setw(15) << std::left << menuIterator->first;
+        std::cout << std::setw(7) << std::right << menuIterator->second << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\nRange-Based For loop:\n";
+    for (auto& [itemName,itemPrice] : menu)
+    {
+        std::cout << std::setw(15) << std::left << itemName;
+        std::cout << std::setw(7) << std::right << itemPrice << "\n";
+    }
+
+    std::string itemToFind = "Cheez Pizza";
+    auto menuIter = menu.find(itemToFind);
+    if (menuIter == menu.end()) //not found
+        std::cout << itemToFind << " was not on the menu. Try McDonald's!\n\n";
+    else
+    {
+        float oldPrice = menuIter->second;
+        //menuIter->first = "Cheese Pizza";
+        menuIter->second = oldPrice * 1.10;
+        std::cout << itemToFind << " used to costs " << oldPrice << "\n";
+        std::cout << "Now it costs " << menuIter->second << ". Thanks PUTIN!\n\n";
+    }
+
+    //loop over the map
+    //      print the student name
+    //      if grade < 59.5, set color to red
+    // 
+    //      print the student grade with a specific color
+
+
     std::map<Weapon, int> dorasBackpack;//will store the counts of each kind of weapon
 
     //returns an iterator and a bool. 
@@ -80,10 +167,55 @@ int main()
     /*
         CHALLENGE:
 
-            Create a map that stores names (string) and grades. Call the variable grades.
+            Create a map that stores names (string) and grades. 
+            Call the variable grades.
             Add students and grades to your map.
 
     */
+
+    std::vector<std::string> students = {
+        "Anthony", "Edwin", "Eric", "Israel", "Jennifer", "Joseph", "Justin", "Saidai", "Garrett",
+"Calvin","Renee","Hazael","Elias","Misael","Gavin","Punam","Marcellus","Aaron","Abigail","Angel","Abram" };
+
+    srand(time(NULL));//seeds rand
+    std::map<std::string, double> grades;
+    for (auto& studentName : students)
+    {
+        grades[studentName] = rand() % 10001 / 100.0;
+        //OR...
+        //auto studentInserted = grades.insert(std::make_pair(studentName, rand() % 10001 / 100.0));
+        //if (not studentInserted.second)
+        //{
+        //    //ask to overwrite
+        //}
+    }
+
+    std::cout << "\n\nIterator loop:\n";
+    for (auto gradeIter = grades.begin(); gradeIter != grades.end(); gradeIter++)
+    {
+        //first is the key
+        //second is the value for the key
+        std::cout << std::setw(15) << std::left << gradeIter->first;
+        std::cout << std::setw(7) << std::right << gradeIter->second << "\n";
+    }
+    std::cout << "\n\n";
+
+    std::cout << "\nRange-Based For loop:\n";
+    for (auto& [studentName, studentGrade] : grades)
+    {
+        std::cout << std::setw(15) << std::left << studentName;
+        Console::SetForegroundColor(
+            //ternary operator
+            (studentGrade < 59.5) ? ConsoleColor::Red : 
+            (studentGrade < 69.5) ? ConsoleColor::Yellow :
+            (studentGrade < 79.5) ? ConsoleColor::Magenta :
+            (studentGrade < 89.5) ? ConsoleColor::Blue :
+            ConsoleColor::Green
+        );
+        std::cout << std::setw(7) << std::right << studentGrade << "\n";
+        Console::Reset();
+    }
+    std::cout << "\n\n";
 
 
 
@@ -176,7 +308,7 @@ int main()
 
         [  Updating a value for a key in a map  ]
 
-        To update an exisiting value in the map, use the [ ]
+        To update an existing value in the map, use the [ ]
 
 
     */
