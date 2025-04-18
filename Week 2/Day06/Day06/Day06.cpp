@@ -5,6 +5,8 @@
 #include <string>
 #include <map>
 #include <iomanip>
+#include <Console.h>
+#include <Input.h>
 
 
 enum class Weapon
@@ -12,6 +14,16 @@ enum class Weapon
     Sword, Axe, Spear, Mace
 };
 
+
+void PrintGrades(const std::map<std::string, double>& course)
+{
+    Console::WriteLine("\nDCU Grades");
+    for (auto& [student,grade] : course)
+    {
+        std::cout << std::setw(10) << std::left << student;
+        std::cout << std::setw(7) << std::right << grade << "\n";
+    }
+}
 
 int main()
 {
@@ -27,20 +39,20 @@ int main()
         erase(key) -- returns the # of items removed
 
     */
-    std::map<Weapon, int> backpack;
-    auto inserted = backpack.insert(std::make_pair(Weapon::Sword, 5));
-    backpack[Weapon::Axe] = 3;
+    std::map<Weapon, int> dorasBackpack;
+    auto inserted = dorasBackpack.insert(std::make_pair(Weapon::Sword, 5));
+    dorasBackpack[Weapon::Axe] = 3;
 
-    size_t numberRemoved = backpack.erase(Weapon::Sword);
+    size_t numberRemoved = dorasBackpack.erase(Weapon::Sword);
     if (numberRemoved > 0)
         std::cout << "The Swords were removed.\n";
     else
         std::cout << "Sword was not found in the map.\n";
 
-    std::map<Weapon, int>::iterator found = backpack.find(Weapon::Axe);
-    if (found != backpack.end())
+    std::map<Weapon, int>::iterator found = dorasBackpack.find(Weapon::Axe);
+    if (found != dorasBackpack.end())
     {
-        backpack.erase(found);
+        dorasBackpack.erase(found);
         std::cout << "The Axes were removed.\n";
     }
     else
@@ -56,7 +68,7 @@ int main()
                     print the students and grades below
                         use std::setw and std::left and std::right to format the output
                     ask for the name of the student to drop from the grades map
-                        use std::getline to get the user's input
+                        use std::getline to get the user's input. use Console::GetString
                     remove the student from the map
                     print message indicating what happened
                     if not found print an error message
@@ -64,6 +76,7 @@ int main()
 
 
     */
+
     srand((unsigned int)time(NULL));
     std::map<std::string, double> grades;
     grades["Bruce"] = rand() % 101;
@@ -73,4 +86,20 @@ int main()
     grades["Clark"] = rand() % 101;
     grades["Arthur"] = rand() % 101;
     grades["Barry"] = rand() % 101;
+
+    do
+    {
+        PrintGrades(grades);
+        std::string student = Input::GetString("Name of student to drop (enter to exit): ");
+        if (student.empty()) break;
+        auto foundStudent = grades.find(student);
+        if (foundStudent == grades.end())
+            std::cout << student << " is not in the course.\n";
+        else
+        {
+            std::cout << student << " had a grade of " << foundStudent->second << ". Dropping from course.\n";
+            grades.erase(foundStudent);
+        }
+
+    } while (true);
 }
