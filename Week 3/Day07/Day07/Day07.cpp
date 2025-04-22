@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include "Person.h"
+#include "color.h"
 
 
 /*              CLASSESS
@@ -55,9 +57,13 @@ int main()
             Create a Person class.
             Right-Click the project and select "Add > Class..."
 
+        CHALLENGE:
+            Add an age field and a name field to the Person class
     */
+    Person alfred("Alfred Pennyweather", 80);//calls a constructor
+    //alfred.age_ = 100;
 
-
+    color mycolor{ 255,0,0,255 };
 
 
     /*
@@ -73,10 +79,6 @@ int main()
 
     */
 
-    /*
-        CHALLENGE:
-            Add an age field and a name field to the Person class
-    */
 
 
 
@@ -99,11 +101,6 @@ int main()
         Lecture code: add a vehicleInformation method
     */
 
-
-    /*
-        CHALLENGE:
-            write an ItsMyBirthday method. increment age and print out a happy message.
-    */
 
 
 
@@ -132,11 +129,21 @@ int main()
 
 
     /*
+        CHALLENGE:
+            write an ItsMyBirthday method. 
+            increment age and print out a happy message.
+    */
+    /*
 
         CHALLENGE:
             Add Age getter/setter to provide access to the mAge field
             Add a Name getter/setter for the mName field
     */
+    alfred.Age(80);//setter
+    alfred.ItsMyBirthday();
+
+    int age = alfred.Age();//getter
+    std::cout << "Alfred is really old! He is " << age << "!!\n";
 
 
 
@@ -165,7 +172,8 @@ int main()
     /*
 
         CHALLENGE:
-            Add a constructor to the Person class to initialize the age and name fields
+            Add a constructor to the Person class to 
+            initialize the age and name fields
     */
 
 
