@@ -10,6 +10,7 @@ public:
 
 	void showMe();
 	int calcDamage();
+	int calcDamage(int modifier);
 
 	int range() const
 	{

@@ -1,5 +1,6 @@
 #pragma once
 #include "Weapon.h"
+#include <utility>
 class Pistol : public Weapon
 {
 public:
@@ -9,6 +10,11 @@ public:
 	{
 		Rounds(rounds);
 		MagCapacity(magCapacity);
+	}
+	Pistol operator+(Pistol& other)
+	{
+		Pistol newPistol(range(), damage(), rounds_ + other.rounds_, std::max(magCapacity_, other.magCapacity_));
+		return newPistol;
 	}
 
 	int Rounds() const { return rounds_; }

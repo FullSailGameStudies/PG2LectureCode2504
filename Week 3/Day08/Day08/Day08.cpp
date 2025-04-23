@@ -7,6 +7,7 @@
 #include "Polymorphism.h"
 #include "Car.h"
 #include "FlyingCar.h"
+#include "Pistol.h"
 
 
 int main()
@@ -54,6 +55,12 @@ int main()
 			Add a constructor that calls the base constructor
 			Create a pistol here in main.
 	*/
+	Pistol pewpew(50, 100, 10, 15);
+	Pistol pistol2(50, 100, 5, 15);
+	pewpew = pewpew + pistol2;
+
+	pewpew.calcDamage();
+	pewpew.calcDamage(5);
 
 
 
