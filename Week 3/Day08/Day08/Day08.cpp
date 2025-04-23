@@ -6,6 +6,7 @@
 #include "Inheritance.h"
 #include "Polymorphism.h"
 #include "Car.h"
+#include "FlyingCar.h"
 
 
 int main()
@@ -39,7 +40,8 @@ int main()
 			Lecture Code: add a FlyingCar class that derives from Car
 
 	*/
-
+	Car myRide(1988, "Ford", "Mustang GT 5.0");
+	FlyingCar jetson(2025, "Tesla", "Cyberplane", 1000, 0);
 
 
 	/*
@@ -50,7 +52,7 @@ int main()
 			add a new class, Pistol, that derives from Weapon.
 			Pistol should have fields with getters/setters for rounds and magCapacity.
 			Add a constructor that calls the base constructor
-
+			Create a pistol here in main.
 	*/
 
 
