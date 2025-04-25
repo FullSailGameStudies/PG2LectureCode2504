@@ -13,6 +13,8 @@ public:
 		altitude_(altitude)
 	{
 	}
+	//override the virtual method
+	std::string vehicleInformation() override;
 
 private:
 	//data

@@ -10,8 +10,19 @@
 #include "Pistol.h"
 
 
+void Counter()
+{
+	static int i = 0;
+	std::cout << i << " ";
+	i++;
+}
+
 int main()
 {
+	for (size_t i = 0; i < 10; i++)
+	{
+		Counter();
+	}
 	/*
 		╔═══════════════╗
 		║  Inheritance  ║
@@ -43,6 +54,7 @@ int main()
 	*/
 	Car myRide(1988, "Ford", "Mustang GT 5.0");
 	FlyingCar jetson(2025, "Tesla", "Cyberplane", 1000, 0);
+	std::cout << jetson.vehicleInformation() << "\n";
 
 
 	/*
