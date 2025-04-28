@@ -50,6 +50,28 @@ int main()
 
         Lecture code: set a filePath variable, open an output file, write some csv data to it
     */
+    std::string fileName = "2504.csv";
+    std::string path = "C:\\temp\\2504\\";
+    std::string fullPath = path + fileName;
+    char sep = '$';
+    //1. Open the file
+    std::ofstream outFile(fullPath);//opens the file
+    if (outFile.is_open())
+    {
+        //2. write to the file
+        // << INSERTION operator
+        outFile << "Batman rules Gotham!" << sep << 5;
+        outFile << sep << 14.2 << sep << "true";
+        outFile << sep << "Aquaman smells.";
+    }
+    else
+    {
+        std::cout << fullPath << " could not be opened.\n";
+    }
+
+
+    //3. Close the file
+    outFile.close();
 
 
     /*
@@ -64,6 +86,53 @@ int main()
 
         Lecture code: using the filePath variable, open an input file, use getline to read a line, print the line
     */
+    //1. Open the file
+    std::ifstream inFile(fullPath);
+    if (inFile.is_open())
+    {
+        //try-catch block
+        // the code that might throw an exception goes into the try block
+        // the code that handles the exception goes into the catch block
+        try
+        {
+            //2. Read the file
+            std::string line;
+            std::getline(inFile, line);//reads until \n OR the end of stream
+            std::cout << line << "\n";
+
+            //parsing the string to get the data
+            std::string data;
+            std::stringstream lineStream(line);
+            std::getline(lineStream, data, sep);//getline REQUIRES a STREAM, not a STRING
+            std::cout << data << "\n";
+
+            std::getline(lineStream, data, sep);//getline REQUIRES a STREAM, not a STRING
+            int iData = std::stoi(data);
+            std::cout << iData << "\n";
+
+            std::getline(lineStream, data, sep);//getline REQUIRES a STREAM, not a STRING
+            double dData = std::stod(data);
+            std::cout << dData << "\n";
+
+            std::getline(lineStream, data, sep);//getline REQUIRES a STREAM, not a STRING
+            bool bData = std::stoi(data);
+            std::cout << bData << "\n";
+
+            std::getline(lineStream, data, sep);//getline REQUIRES a STREAM, not a STRING
+            std::cout << data << "\n";
+
+        }
+        catch (const std::exception& ex)
+        {
+            std::cout << ex.what() << "\n";
+        }
+    }
+
+    else
+        std::cout << fullPath << " could not be opened.\n";
+
+    //3. Close the file
+    inFile.close();
 
 
     /*
