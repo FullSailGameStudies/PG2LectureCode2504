@@ -53,6 +53,49 @@ int main()
     garage.push_back(Car(1965, "Pontiac", "GTO"));
     garage.push_back(Car(1969, "Plymouth", "Hemi Cuda"));
 
+    fileName = "jaysGarage.csv";
+    std::ofstream outputFile(fileName);
+    if (outputFile.is_open())
+    {
+        int index = 0;
+        for (auto& jaysCar : garage)
+        {
+            jaysCar.Serialize(outputFile, delimiter);
+            if(index < garage.size()-1)
+                outputFile << "\n";
+            index++;
+        }
+    }
+    else
+        std::cout << fileName << " could not be opened.\n";
+
+    outputFile.close();
+
+    std::vector<Car> loadedCars;
+    std::ifstream inputFile(fileName);
+    if (inputFile.is_open())
+    {
+        while (not inputFile.eof())
+        {
+            std::string carLine;
+            std::getline(inputFile, carLine);
+            if (carLine.empty()) continue;
+            Car nextCar(carLine, delimiter);
+            loadedCars.push_back(nextCar);
+        }
+    }
+    else
+        std::cout << fileName << " could not be opened.\n";
+
+    inputFile.close();
+
+    std::cout << "\n\nLoaded Cars\n";
+    for (auto& loaded : loadedCars)
+    {
+        loaded.Serialize(std::cout, '\t');
+        std::cout << "\n";
+    }
+
 
     /*
         ╔═════════════╗
