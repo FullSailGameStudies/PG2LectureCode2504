@@ -19,8 +19,9 @@ public:
 	Car(int modelYear, std::string make, std::string model) :
 		mModelYear(modelYear), mMake(make), mModel(model)
 	{}
-
+	Car(const std::string& carData, char delim);
 	void Serialize(std::ostream& outStream, char delim) const;
+	void Deserialize(const std::string& carData, char delim);
 
 	int ModelYear() const  //const says the method can't modify anything
 	{ 
